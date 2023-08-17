@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:qr_manager/add_vehicle_screen.dart';
-import 'package:qr_manager/view_qr_code_screen.dart';
+import 'package:qr_manager/screens/view_qr_code_screen.dart';
+import 'add_vehicle_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Vehicle> vehicles = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,19 +20,28 @@ class HomeScreen extends StatelessWidget {
           return ListTile(
             title: Text(vehicles[index].name),
             onTap: () {
-              // Navigate to the QR code view screen with the selected vehicle
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ViewQRCodeScreen(vehicle: vechicles[index])),
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ViewQRCodeScreen(vehicle: vehicles[index]),
+                ),
               );
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigate to the add vehicle screen
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddVehicleScreen()));
+        onPressed: () async {
+          final newVehicle = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddVehicleScreen()),
+          );
+          if (newVehicle != null) {
+            setState(() {
+              vehicles.add(newVehicle);
+            });
+          }
         },
         child: Icon(Icons.add),
       ),

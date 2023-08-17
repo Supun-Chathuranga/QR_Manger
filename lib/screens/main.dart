@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'package:qr_manager/screens/home_screen.dart';
 
 void main() {
   runApp(MyApp());

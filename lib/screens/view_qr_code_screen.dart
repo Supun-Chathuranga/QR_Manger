@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qr_manager/models/vehicle.dart'; // Import your Vehicle class or wherever you defined it
+import '../models/vehicle.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class ViewQRCodeScreen extends StatelessWidget {
   final Vehicle vehicle;
@@ -16,9 +17,11 @@ class ViewQRCodeScreen extends StatelessWidget {
           children: [
             Text(vehicle.name),
             SizedBox(height: 20),
-            // Replace with an Image widget that loads the QR code image
-            // For example:
-            // Image.network(vehicle.qrCodeImageUrl),
+            QrImage(
+              data: vehicle.qrCodeImageUrl,
+              version: QrVersions.auto,
+              size: 200.0,
+            ),
           ],
         ),
       ),
