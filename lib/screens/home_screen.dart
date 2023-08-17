@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:qr_manager/screens/view_qr_code_screen.dart';
 import 'add_vehicle_screen.dart';
+import 'view_qr_code_screen.dart';
+import '../models/vehicle.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -23,8 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      ViewQRCodeScreen(vehicle: vehicles[index]),
+                  builder: (context) => ViewQRCodeScreen(vehicle: vehicles[index]),
                 ),
               );
             },

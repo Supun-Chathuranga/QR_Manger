@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/vehicle.dart';
@@ -8,12 +10,11 @@ class AddVehicleScreen extends StatefulWidget {
 }
 
 class _AddVehicleScreenState extends State<AddVehicleScreen> {
-  String vehicleName = '';
+  String vehicleName = "";
   PickedFile? qrCodeImage;
 
   void _pickImage() async {
-    final pickedImage =
-        await ImagePicker().getImage(source: ImageSource.gallery);
+    final pickedImage = await ImagePicker().getImage(source: ImageSource.gallery);
     if (pickedImage != null) {
       setState(() {
         qrCodeImage = pickedImage;
@@ -21,43 +22,41 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
     }
   }
 
-  void _saveVehicle() {
-    if (vehicleName.isNotEmpty && qrCodeImage != null) {
-      final newVehicle = Vehicle(vehicleName, qrCodeImage!.path);
-      Navigator.pop(context, newVehicle);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Add Vehicle')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              onChanged: (value) {
-                setState(() {
-                  vehicleName = value;
-                });
-              },
-              decoration: InputDecoration(labelText: 'Vehicle Name'),
+      body: Column(
+        children: [
+          TextField(
+            decoration: InputDecoration(labelText: 'Vehicle Name'),
+            onChanged: (value) {
+              setState(() {
+                vehicleName = value;
+              });
+            },
+          ),
+          ElevatedButton(
+            onPressed: _pickImage,
+            child: Text('Upload QR Code Image'),
+          ),
+          if (qrCodeImage != null)
+            Image.file(
+              File(qrCodeImage!.path),
+              height: 100,
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _pickImage,
-              child: Text('Pick QR Code Image'),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _saveVehicle,
-              child: Text('Save Vehicle'),
-            ),
-          ],
-        ),
+          ElevatedButton(
+            onPressed: () {
+              if (vehicleName.isNotEmpty && qrCodeImage != null) {
+                Navigator.pop(
+                  context,
+                  Vehicle(vehicleName, qrCodeImage!.path),
+                );
+              }
+            },
+            child: Text('Save Vehicle'),
+          ),
+        ],
       ),
     );
   }

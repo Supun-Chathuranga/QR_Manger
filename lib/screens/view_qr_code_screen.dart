@@ -1,6 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../models/vehicle.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 class ViewQRCodeScreen extends StatelessWidget {
   final Vehicle vehicle;
@@ -17,10 +18,9 @@ class ViewQRCodeScreen extends StatelessWidget {
           children: [
             Text(vehicle.name),
             SizedBox(height: 20),
-            QrImage(
-              data: vehicle.qrCodeImageUrl,
-              version: QrVersions.auto,
-              size: 200.0,
+            Image.file(
+              File(vehicle.qrCodeImageUrl),
+              height: 200,
             ),
           ],
         ),
