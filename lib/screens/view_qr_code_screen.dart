@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'vehicle.dart'; // Import your Vehicle class or wherever you defined it
+import 'package:qr_manager/models/vehicle.dart'; // Import your Vehicle class or wherever you defined it
 
 class ViewQRCodeScreen extends StatelessWidget {
   final Vehicle vehicle;

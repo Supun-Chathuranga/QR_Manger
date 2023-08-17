@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:qr_manager/add_vehicle_screen.dart';
+import 'package:qr_manager/view_qr_code_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -12,7 +16,7 @@ class HomeScreen extends StatelessWidget {
               // Navigate to the QR code view screen with the selected vehicle
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ViewQRCodeScreen(vehicle: vehicles[index])),
+                MaterialPageRoute(builder: (context) => ViewQRCodeScreen(vehicle: vechicles[index])),
               );
             },
           );
